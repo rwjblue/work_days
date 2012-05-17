@@ -66,10 +66,10 @@ module BusinessDays
   end
 
   def self.work_days_in_range(start, stop)
-    working_days = 0
+    working_days = []
 
     (start.to_date..stop.to_date).each do |date|
-      working_days += 1 if work_day?(date)
+      working_days << date if work_day?(date)
     end
 
     working_days
