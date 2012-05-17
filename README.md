@@ -1,6 +1,6 @@
 # BusinessDays
 
-TODO: Write a gem description
+Calculate the number of business days in a given period.  Also, add convenience methods to Range, Date, and Time.
 
 ## Installation
 
