@@ -1,6 +1,7 @@
 require 'pry'
 
 require_relative '../lib/business_days'
+Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
