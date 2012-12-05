@@ -33,12 +33,12 @@ module BusinessDays
     !weekend_day?(date)
   end
 
-  def non_work_day?(date)
-    !work_day?(date)
-  end
-
   def work_day?(date)
     week_day?(date) && !holiday?(date)
+  end
+
+  def non_work_day?(date)
+    !work_day?(date)
   end
 
   def work_days_in_range(start, stop)

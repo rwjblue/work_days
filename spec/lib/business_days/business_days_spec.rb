@@ -1,6 +1,7 @@
 require_relative '../../spec_helper'
 
 describe BusinessDays, :type => :holiday_helpers do
+  let(:today)        {Date.today}
   let(:current_year) {Date.today.year}
 
   holidays.each do |holiday, dates|
@@ -23,39 +24,78 @@ describe BusinessDays, :type => :holiday_helpers do
     end
   end
 
-  context "#week_day" do
-    it "should be true for weekday holidays" do
-      dates = holidays[:memorial_day] + holidays[:thanksgiving_day]
-      dates.each do |date|
-        date = Date.parse(date)
+  context "#weekend_day?" do
+    let(:date) {double('date', :sunday? => false, :saturday? => false)}
 
-        BusinessDays.week_day?(date).should be_true
+    it "should be true for sundays" do
+      date.should_receive(:sunday?).and_return(true)
+      BusinessDays.weekend_day?(date).should be_true
+    end
+
+    it "should be true for saturdays" do
+      date.should_receive(:saturday?).and_return(true)
+      BusinessDays.weekend_day?(date).should be_true
+    end
+
+    it "should be false for non-saturdays/non-sundays" do
+      date.should_receive(:sunday?).and_return(false)
+      date.should_receive(:saturday?).and_return(false)
+      BusinessDays.weekend_day?(date).should be_false
+    end
+    it "should be true for weekday holidays" do
+      all_holiday_dates.each do |date|
+        date = Date.parse(date)
+        weekend_flag = date.saturday? || date.sunday?
+
+        BusinessDays.weekend_day?(date).should == weekend_flag
       end
     end
   end
 
+  context "#week_day?" do
+    it "is true when weekend_day? is false" do
+      BusinessDays.should_receive(:weekend_day?).and_return(false)
+      BusinessDays.week_day?(today).should be_true
+    end
+
+    it "is false when weekend_day? is true" do
+      BusinessDays.should_receive(:weekend_day?).and_return(true)
+      BusinessDays.week_day?(today).should be_false
+    end
+  end
+
+  context "#work_day?" do
+    it "should be true for a non-holiday weekday" do
+      BusinessDays.should_receive(:week_day?).and_return(true)
+      BusinessDays.should_receive(:holiday?).and_return(false)
+
+      BusinessDays.work_day?(today).should be_true
+    end
+
+    it "should be false for a holiday" do
+      BusinessDays.should_receive(:week_day?).and_return(true)
+      BusinessDays.should_receive(:holiday?).and_return(true)
+
+      BusinessDays.work_day?(today).should be_false
+    end
+
+    it "should be false for a weekend" do
+      BusinessDays.should_receive(:week_day?).and_return(false)
+      BusinessDays.should_not_receive(:holiday?)
+
+      BusinessDays.work_day?(today).should be_false
+    end
+  end
+
   context "#non_work_day?" do
-    it "should be true for weekend days" do
-      BusinessDays.non_work_day?(Date.new(2012,12,8)).should be_true
-      BusinessDays.non_work_day?(Date.new(2012,12,9)).should be_true
+    it "is true when work_day? is false" do
+      BusinessDays.should_receive(:work_day?).and_return(false)
+      BusinessDays.non_work_day?(today).should be_true
     end
 
-    it "should be true for holidays" do
-      default_holiday_dates.each do |date|
-        date = Date.parse(date)
-
-        BusinessDays.non_work_day?(date).should be_true
-      end
-    end
-
-    it "should be false for non-holidays" do
-      default_holiday_dates.each do |date|
-        date = Date.parse(date) + 3
-        date -= 1 if date.saturday?
-        date += 1 if date.sunday?
-
-        BusinessDays.non_work_day?(date).should be_false
-      end
+    it "is false when work_day? is true" do
+      BusinessDays.should_receive(:work_day?).and_return(true)
+      BusinessDays.non_work_day?(today).should be_false
     end
   end
 
