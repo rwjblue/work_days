@@ -99,6 +99,24 @@ describe BusinessDays, :type => :holiday_helpers do
     end
   end
 
+  context "#work_days_in_range" do
+    it "should return an array of the work days between two dates" do
+      work_days = []
+
+      start_date = Date.new(rand(1900..2500), rand(1..12), rand(1..28))
+      end_date   = start_date + rand(365)
+
+      (start_date..end_date).each do |date|
+        work_day = rand(0..1) == 0
+
+        work_days << date if work_day
+        BusinessDays.should_receive(:work_day?).with(date).and_return(work_day)
+      end
+
+      BusinessDays.work_days_in_range(start_date, end_date).should eq(work_days)
+    end
+  end
+
   context "#next_work_day" do
     it "iterates through each day until it finds the first non-holiday/weekend" do
       first_work_day = Date.new(2012,12,5)
