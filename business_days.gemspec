@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "business_days"
   gem.require_paths = ["lib"]
   gem.version       = BusinessDays::VERSION
+
+  gem.add_development_dependency 'rspec'
 end

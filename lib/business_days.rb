@@ -1,71 +1,47 @@
 require 'date'
 
 require_relative 'business_days/version'
+require_relative 'business_days/holidays'
 require_relative 'business_days/ext/date'
 require_relative 'business_days/ext/time'
 require_relative 'business_days/ext/date_time'
 require_relative 'business_days/ext/range'
 
 module BusinessDays
-  def self.build_holidays( start = Date.today.year - 5, stop = Date.today.year + 5)
-    holidays = []
-    (start..stop).each do |year|
-      holidays << closest_work_day(Date.new(year, 1, 1))    # New Years
-      holidays << memorial_day(year)                        # Memorial Day
-      holidays << closest_work_day(Date.new(year, 7, 4))    # 4th of July
-      holidays << labor_day(year)                           # Labor Day
-      holidays << thanksgiving(year)                        # Thanksgiving
-      holidays << closest_work_day(Date.new(year, 12, 25))  # 4th of July
-    end
+  extend self
 
-    holidays
+  def holiday_methods=(methods)
+    @holiday_methods = methods
   end
 
-  def self.memorial_day(year)
-    31.downto(1).each do |day|
-      date = Date.new(year, 5, day)
-      return date if date.monday?
+  def holiday_methods
+    @holiday_methods ||= default_holiday_methods
+  end
+
+  def holiday?(date)
+    holiday_methods.any? do |sym|
+      next if caller.any?{|c| c =~ /`#{sym.to_s}'\z/}
+      send(sym, date.year) == date
     end
   end
 
-  def self.thanksgiving(year)
-    thursdays = 0
-    1.upto(30).each do |day|
-      date = Date.new(year, 11, day)
-      thursdays += 1 if date.thursday?
-      return date if thursdays == 4
-    end
+  def weekend_day?(date)
+    date.sunday? || date.saturday?
   end
 
-  def self.labor_day(year)
-    1.upto(30).each do |day|
-      date = Date.new(year, 9, day)
-      return date if date.monday?
-    end
+  def week_day?(date)
+    !weekend_day?(date)
   end
 
-  def self.holidays
-    @holidays ||= build_holidays
+  def non_work_day?(date)
+    !work_day?(date)
   end
 
-  def self.holiday?(date)
-    holidays.include?(date.to_date)
+  def work_day?(date)
+    week_day?(date) && !holiday?(date)
   end
 
-  def self.closest_work_day(date)
-    return date.to_date.prev_day if date.saturday?
-    return date.to_date.next_day if date.sunday?
-
-    date
-  end
-
-  def self.work_day?(date)
-    return false if date.sunday? || date.saturday?
-
-    holiday?(date) ? false : true
-  end
-
-  def self.work_days_in_range(start, stop)
+  def work_days_in_range(start, stop)
     working_days = []
 
     (start.to_date..stop.to_date).each do |date|
@@ -73,5 +49,41 @@ module BusinessDays
     end
 
     working_days
+  end
+
+  def previous_work_day(date)
+    while non_work_day?(date) do
+      date = date.to_date.prev_day
+    end
+
+    date
+  end
+
+  def next_work_day(date)
+    while non_work_day?(date) do
+      date = date.to_date.next_day
+    end
+
+    date
+  end
+
+  private
+
+  def default_holiday_methods
+    [ :new_years_day,
+      :memorial_day,
+      :independence_day,
+      :labor_day,
+      :thanksgiving_day,
+      :black_friday,
+      :christmas_eve_day,
+      :christmas_day ]
+  end
+
+  def weekday_if_weekend(date)
+    date -= 1 if date.saturday?
+    date += 1 if date.sunday?
+
+    date
   end
 end
