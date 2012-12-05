@@ -101,19 +101,19 @@ describe BusinessDays, :type => :holiday_helpers do
 
   context "#work_days_in_range" do
     it "should return an array of the work days between two dates" do
-      work_days = []
+      valid_work_days = []
 
-      start_date = Date.new(rand(1900..2500), rand(1..12), rand(1..28))
-      end_date   = start_date + rand(365)
+      start_date = random_date
+      end_date   = start_date + rand(35)
 
       (start_date..end_date).each do |date|
-        work_day = rand(0..1) == 0
+        work_day = random_boolean
 
-        work_days << date if work_day
+        valid_work_days << date if work_day
         BusinessDays.should_receive(:work_day?).with(date).and_return(work_day)
       end
 
-      BusinessDays.work_days_in_range(start_date, end_date).should eq(work_days)
+      BusinessDays.work_days_in_range(start_date, end_date).should eq(valid_work_days)
     end
   end
 
