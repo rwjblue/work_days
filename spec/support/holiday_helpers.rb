@@ -25,6 +25,14 @@ module BusinessDays::SpecHelpers
       holidays[holiday]
     end.flatten.compact
   end
+
+  def random_date
+    Date.new(rand(1900..2500), rand(1..12), rand(1..28))
+  end
+
+  def random_boolean
+    rand(0..1) == 0
+  end
 end
 
 RSpec.configure do |c|
