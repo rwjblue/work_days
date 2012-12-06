@@ -1,3 +1,5 @@
+require_relative 'calculation_methods'
+
 module BusinessDays::HolidayMethods
   include BusinessDays::CalculationMethods
 
@@ -58,6 +60,11 @@ module BusinessDays::HolidayMethods
 
   def columbus_day(year=nil)
     day_of_week_occurence(year, 10, :monday?, 2)
+  end
+
+  def veterans_day(year=nil)
+    year = format_year(year)
+    weekday_if_weekend(Date.new(year,11,11))
   end
 
   def thanksgiving_day(year=nil)

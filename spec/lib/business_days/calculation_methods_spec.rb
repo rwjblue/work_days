@@ -6,11 +6,11 @@ describe BusinessDays::CalculationMethods, :type => :holiday_helpers do
 
   let(:dummy_class) do
     Class.new do
-      extend(BusinessDays::CalculationMethods)
+      include(BusinessDays::CalculationMethods)
     end
   end
 
-  subject{dummy_class}
+  subject{dummy_class.new}
 
   context "#weekend_day?" do
     let(:date) {double('date', :sunday? => false, :saturday? => false)}
