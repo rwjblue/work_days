@@ -128,4 +128,10 @@ describe BusinessDays::CalculationMethods, :type => :holiday_helpers do
       subject.previous_work_day(starting_date).should eq(first_work_day)
     end
   end
+
+  context "#observed_holidays" do
+    it "should raise an exception" do
+      expect{subject.observed_holidays}.to raise_error
+    end
+  end
 end
