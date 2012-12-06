@@ -129,6 +129,24 @@ describe BusinessDays::CalculationMethods, :type => :holiday_helpers do
     end
   end
 
+  context "#work_days_from" do
+    it "should accept the number of days and starting date" do
+      should respond_to(:work_days_from)
+    end
+
+    it "should call next_work_day the specified number of times" do
+      start_date      = random_date
+      current_date    = start_date
+      days_from_start = rand(1..100)
+
+      days_from_start.downto(1) do
+        subject.should_receive(:next_work_day).with(current_date).and_return(current_date += 1)
+      end
+
+      subject.work_days_from(days_from_start, start_date).should eq(current_date)
+    end
+  end
+
   context "#observed_holidays" do
     it "should raise an exception" do
       expect{subject.observed_holidays}.to raise_error

@@ -48,6 +48,14 @@ module BusinessDays::CalculationMethods
     date
   end
 
+  def work_days_from(number_of_days, date)
+    number_of_days.times do
+      date = next_work_day(date)
+    end
+
+    date
+  end
+
   def observed_holidays
     raise NotImplementedError, 'You must override this method.'
   end
