@@ -1,4 +1,6 @@
-module BusinessDays
+module BusinessDays::HolidayMethods
+  include BusinessDays::CalculationMethods
+
   def new_years_day(year=nil)
     year = format_year(year)
     weekday_if_weekend(Date.new(year,1,1))
@@ -75,22 +77,4 @@ module BusinessDays
     weekday_if_weekend(Date.new(year,12,25))
   end
 
-  private
-
-  def format_year(year=nil)
-    year ||= Date.today.year
-    year.to_i
-  end
-
-  def day_of_week_occurence(year, month, test, count=nil)
-    year    = format_year(year)
-    count ||= 1
-    counter = 0
-
-    1.upto(31).each do |day|
-      date = Date.new(year, month, day)
-      counter += 1 if date.send(test)
-      return date if counter == count
-    end
-  end
 end
