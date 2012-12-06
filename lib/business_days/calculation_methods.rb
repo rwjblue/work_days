@@ -48,11 +48,11 @@ module BusinessDays::CalculationMethods
     date
   end
 
-  private
-
   def observed_holidays
     raise NotImplementedError, 'You must override this method.'
   end
+
+  private
 
   def weekday_if_weekend(date)
     date -= 1 if date.saturday?
