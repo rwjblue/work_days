@@ -4,7 +4,7 @@ require File.expand_path('../lib/business_days/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Robert Jackson"]
   gem.email         = ["robertj@promedicalinc.com"]
-  gem.description   = %q{Calculate the number of business days in a given period.  Also, add convenience methods to Range, Date, and Time.}
+  gem.description   = %q{Calculate the number of business days in a given period.  Also, add convenience methods to Range, Date, DateTime, and Time.}
   gem.summary       = %q{Simple business day calculations.}
   gem.homepage      = "https://github.com/rjackson/business_days"
 
