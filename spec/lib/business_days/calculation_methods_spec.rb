@@ -106,24 +106,40 @@ describe BusinessDays::CalculationMethods, :type => :holiday_helpers do
   end
 
   context "#next_work_day" do
+    it "should never return the same date" do
+      starting_date = random_date
+      ending_date   = starting_date + 1
+
+      subject.should_receive(:work_day?).and_return(true)
+      subject.next_work_day(starting_date).should eq(ending_date)
+    end
+
     it "iterates through each day until it finds the first non-holiday/weekend" do
       first_work_day = random_date
       starting_date  = first_work_day - 2
 
-      subject.should_receive(:non_work_day?).twice.and_return(true)
-      subject.should_receive(:non_work_day?).with(first_work_day).and_return(false)
+      subject.should_receive(:work_day?).and_return(false)
+      subject.should_receive(:work_day?).with(first_work_day).and_return(true)
 
       subject.next_work_day(starting_date).should eq(first_work_day)
     end
   end
 
   context "#previous_work_day" do
+    it "should never return the same date" do
+      starting_date = random_date
+      ending_date   = starting_date - 1
+
+      subject.should_receive(:work_day?).and_return(true)
+      subject.previous_work_day(starting_date).should eq(ending_date)
+    end
+
     it "iterates backwards through each day until it finds the first non-holiday/weekend" do
       first_work_day = random_date
       starting_date  = first_work_day + 2
 
-      subject.should_receive(:non_work_day?).twice.and_return(true)
-      subject.should_receive(:non_work_day?).with(first_work_day).and_return(false)
+      subject.should_receive(:work_day?).and_return(false)
+      subject.should_receive(:work_day?).with(first_work_day).and_return(true)
 
       subject.previous_work_day(starting_date).should eq(first_work_day)
     end

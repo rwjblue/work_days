@@ -33,16 +33,18 @@ module BusinessDays::CalculationMethods
   end
 
   def previous_work_day(date)
-    while non_work_day?(date) do
+    loop do
       date = date.to_date.prev_day
+      break if work_day?(date)
     end
 
     date
   end
 
   def next_work_day(date)
-    while non_work_day?(date) do
+    loop do
       date = date.to_date.next_day
+      break if work_day?(date)
     end
 
     date
