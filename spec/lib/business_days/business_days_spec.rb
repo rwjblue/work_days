@@ -31,13 +31,28 @@ describe BusinessDays, :type => :holiday_helpers do
   end
 
   context ".method_missing" do
+    before do
+      subject.work_schedule = double('schedule',:random_method => 'non_nil', :foo => 'bar')
+    end
+
+    after do
+      subject.work_schedule = nil
+    end
+
+    it "raises NoMethodError when a method is called that the current WorkSchedule doesn't implement" do
+      expect{ subject.adsfakjlk }.to raise_error(NoMethodError)
+    end
+
     it "proxies all calls to current work_schedule" do
-      dummy = double('schedule',:random_method => 'non_nil', :foo => 'bar')
-      dummy.should_receive(:random_method)
-      dummy.should_receive(:foo)
-      subject.work_schedule = dummy
+      subject.work_schedule.should_receive(:random_method)
+      subject.work_schedule.should_receive(:foo)
       subject.random_method.should eq('non_nil')
       subject.foo.should eq('bar')
+    end
+
+    it "indicates that it responds to methods implemented by the current WorkSchedule" do
+      subject.respond_to?(:random_method).should be_true
+      subject.respond_to?(:foo).should be_true
     end
   end
 end

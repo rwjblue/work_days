@@ -19,7 +19,15 @@ module BusinessDays
     @work_schedule ||= BusinessDays::WorkSchedules::Default.new
   end
 
+  def self.respond_to_missing?(method_name, include_private = false)
+    work_schedule.respond_to?(method_name)
+  end
+
   def self.method_missing(name, *args, &block)
-    work_schedule.public_send(name, *args, &block)
+    if work_schedule.respond_to?(name)
+      work_schedule.public_send(name, *args, &block)
+    else
+      super
+    end
   end
 end
