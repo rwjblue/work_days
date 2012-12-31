@@ -1,4 +1,4 @@
-# BusinessDays
+# WorkDays
 
 Calculate the number of business days in a given period.  Also, add convenience methods to Range, Date, and Time.
 
@@ -6,7 +6,7 @@ Calculate the number of business days in a given period.  Also, add convenience 
 
 Add this line to your application's Gemfile:
 
-    gem 'business_days'
+    gem 'work_days'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install business_days
+    $ gem install work_days
 
 ## Usage
 

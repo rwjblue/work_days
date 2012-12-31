@@ -1,6 +1,6 @@
 require 'pry'
 
-require_relative '../lib/business_days'
+require_relative '../lib/work_days'
 Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
 
 RSpec.configure do |config|

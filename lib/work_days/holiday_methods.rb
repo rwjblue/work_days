@@ -1,7 +1,7 @@
 require_relative 'calculation_methods'
 
-module BusinessDays::HolidayMethods
-  include BusinessDays::CalculationMethods
+module WorkDays::HolidayMethods
+  include WorkDays::CalculationMethods
 
   def new_years_day(year=nil)
     year = format_year(year)

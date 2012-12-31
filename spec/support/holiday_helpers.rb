@@ -1,4 +1,4 @@
-module BusinessDays::SpecHelpers
+module WorkDays::SpecHelpers
   def holidays
     @holidays ||= {
       :new_years_day          => %w{1980-01-01 1987-01-01 1993-01-01 2001-01-01 2006-01-02 2015-01-01},
@@ -22,7 +22,7 @@ module BusinessDays::SpecHelpers
   end
 
   def default_holiday_dates
-    BusinessDays.send(:default_holiday_methods).collect do |holiday|
+    WorkDays.send(:default_holiday_methods).collect do |holiday|
       holidays[holiday]
     end.flatten.compact
   end
@@ -37,7 +37,7 @@ module BusinessDays::SpecHelpers
 end
 
 RSpec.configure do |c|
-    c.extend  BusinessDays::SpecHelpers, :type => :holiday_helpers
-    c.include BusinessDays::SpecHelpers, :type => :holiday_helpers
+    c.extend  WorkDays::SpecHelpers, :type => :holiday_helpers
+    c.include WorkDays::SpecHelpers, :type => :holiday_helpers
 end
 

@@ -1,7 +1,7 @@
-module BusinessDays::WorkSchedules
+module WorkDays::WorkSchedules
   class Default
-    include BusinessDays::CalculationMethods
-    include BusinessDays::HolidayMethods
+    include WorkDays::CalculationMethods
+    include WorkDays::HolidayMethods
 
     def observed_holidays
       [ :new_years_day,

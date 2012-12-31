@@ -1,11 +1,11 @@
 shared_examples "a work schedule" do
   context "included modules" do
-    it "includes BusinessDays::HolidayMethods" do
-      described_class.ancestors.should include(BusinessDays::HolidayMethods)
+    it "includes WorkDays::HolidayMethods" do
+      described_class.ancestors.should include(WorkDays::HolidayMethods)
     end
 
-    it "includes BusinessDays::CalculationMethods" do
-      described_class.ancestors.should include(BusinessDays::CalculationMethods)
+    it "includes WorkDays::CalculationMethods" do
+      described_class.ancestors.should include(WorkDays::CalculationMethods)
     end
   end
 

@@ -1,3 +1,3 @@
-module BusinessDays
+module WorkDays
   VERSION = "0.0.3"
 end

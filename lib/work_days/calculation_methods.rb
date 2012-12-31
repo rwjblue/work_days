@@ -1,4 +1,4 @@
-module BusinessDays::CalculationMethods
+module WorkDays::CalculationMethods
   def holiday?(date)
     observed_holidays.any? do |sym|
       next if caller.any?{|c| c =~ /`#{sym.to_s}'\z/}

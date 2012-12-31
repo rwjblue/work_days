@@ -1,12 +1,12 @@
 require_relative '../../spec_helper'
 
-describe BusinessDays::CalculationMethods, :type => :holiday_helpers do
+describe WorkDays::CalculationMethods, :type => :holiday_helpers do
   let(:today)        {Date.today}
   let(:current_year) {Date.today.year}
 
   let(:dummy_class) do
     Class.new do
-      include(BusinessDays::CalculationMethods)
+      include(WorkDays::CalculationMethods)
     end
   end
 

@@ -1,7 +1,7 @@
 require_relative '../../spec_helper'
 
-describe BusinessDays, :type => :holiday_helpers do
-  subject {BusinessDays}
+describe WorkDays, :type => :holiday_helpers do
+  subject {WorkDays}
 
   before do
     subject.instance_variable_set(:@work_schedule, nil)
@@ -26,7 +26,7 @@ describe BusinessDays, :type => :holiday_helpers do
     end
 
     it "returns new WorkSchedules::Default if the work_schedule wasn't already set" do
-      subject.work_schedule.should be_an_instance_of(BusinessDays::WorkSchedules::Default)
+      subject.work_schedule.should be_an_instance_of(WorkDays::WorkSchedules::Default)
     end
   end
 
