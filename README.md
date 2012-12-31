@@ -45,14 +45,14 @@ You can configure your own week days by overriding the week_day? method in your 
 These methods can be called either on an instance of your work schedule class or directly
 on the WorkDays module (as long as you set the WorkDays.work_schedule).
 
-#### work_day?(date)
-  Returns true for week days as long as it isn't a holiday.
-#### non_work_day?(date)
-  The opposite of work_day?.
-#### work_days_in_range(start_date, end_date)
-  Returns an array of the work days between the start and end dates.
-#### work_days_in_month(date)
-  Returns an array of the work days for the year and month of the passed in date.
+* work_day?(date)
+  * Returns true for week days as long as it isn't a holiday.
+* non_work_day?(date)
+  * The opposite of work_day?.
+* work_days_in_range(start_date, end_date)
+  * Returns an array of the work days between the start and end dates.
+* work_days_in_month(date)
+  * Returns an array of the work days for the year and month of the passed in date.
 
 ## Contributing
 
