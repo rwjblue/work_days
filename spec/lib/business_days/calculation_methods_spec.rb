@@ -105,6 +105,18 @@ describe BusinessDays::CalculationMethods, :type => :holiday_helpers do
     end
   end
 
+  context "#work_days_in_month" do
+    let(:date)             {random_date}
+    let(:range_start_date) {Date.new(date.year, date.month, 1)}
+    let(:range_end_date)   {Date.new(date.year, date.month, -1)}
+    let(:range_work_days)  {rand(1..31)}
+
+    it "should return the number of days in the month specified" do
+      subject.should_receive(:work_days_in_range).with(range_start_date, range_end_date).and_return(range_work_days)
+      subject.work_days_in_month(date).should eq(range_work_days)
+    end
+  end
+
   context "#next_work_day" do
     it "should never return the same date" do
       starting_date = random_date

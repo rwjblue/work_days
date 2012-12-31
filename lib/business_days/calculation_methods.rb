@@ -32,6 +32,13 @@ module BusinessDays::CalculationMethods
     working_days
   end
 
+  def work_days_in_month(date)
+    start_date = Date.new(date.year, date.month,  1)
+    end_date   = Date.new(date.year, date.month, -1)
+
+    work_days_in_range(start_date, end_date)
+  end
+
   def previous_work_day(date)
     loop do
       date = date.to_date.prev_day
