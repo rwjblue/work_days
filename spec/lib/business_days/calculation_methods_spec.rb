@@ -88,11 +88,11 @@ describe BusinessDays::CalculationMethods, :type => :holiday_helpers do
   end
 
   context "#work_days_in_range" do
+    let(:start_date) {random_date}
+    let(:end_date)   {start_date + rand(45)}
+
     it "should return an array of the work days between two dates" do
       valid_work_days = []
-
-      start_date = random_date
-      end_date   = start_date + rand(35)
 
       (start_date..end_date).each do |date|
         work_day = random_boolean
