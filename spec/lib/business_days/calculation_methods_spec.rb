@@ -117,6 +117,21 @@ describe BusinessDays::CalculationMethods, :type => :holiday_helpers do
     end
   end
 
+  context "#monthly_work_days" do
+    let(:year)          {rand(1900..2500)}
+    let(:monthly_work_days) do
+      Hash[(1..12).collect{|i| [Date.new(year, i, 1), i]}]
+    end
+
+    it "should return an array of the work_days in each month of the given year" do
+      monthly_work_days.each do |start_date, days|
+        subject.should_receive(:work_days_in_month).with(start_date).and_return(days)
+      end
+
+      subject.monthly_work_days(year).should eql(monthly_work_days.values)
+    end
+  end
+
   context "#next_work_day" do
     it "should never return the same date" do
       starting_date = random_date

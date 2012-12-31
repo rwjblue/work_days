@@ -69,6 +69,12 @@ module BusinessDays::CalculationMethods
     raise NotImplementedError, 'You must override this method.'
   end
 
+  def monthly_work_days(year=nil)
+    year = format_year(year)
+
+    (1..12).collect{|month| work_days_in_month(Date.new(year, month))}
+  end
+
   private
 
   def weekday_if_weekend(date)
