@@ -1,8 +1,9 @@
 language: ruby
 rvm:
-  - 2.1.0
   - 2.0.0
-  - jruby-19mode
 script: rspec
 notifications:
-  email: false
+  email:
+    on_success: always
+    on_failure: always
+
