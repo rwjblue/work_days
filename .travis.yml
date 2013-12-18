@@ -5,5 +5,4 @@ rvm:
   - jruby-19mode
 script: rspec
 notifications:
-  email:
-    - robert.w.jackson@me.com
+  email: false
