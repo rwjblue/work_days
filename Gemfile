@@ -4,7 +4,5 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'pry'
-gem 'rspec'
-gem 'bahia'
 gem 'guard-rspec'
 gem 'rb-fsevent'
