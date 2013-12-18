@@ -3,9 +3,6 @@ rvm:
   - 2.1.0
   - 2.0.0
   - jruby-19mode
-before_install:
-  - sudo apt-get update && sudo apt-get install git
-  - gem install bundler --pre
 script: rspec
 notifications:
   email:
