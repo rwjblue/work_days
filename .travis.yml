@@ -1,8 +1,15 @@
 language: ruby
 rvm:
+  - 2.1.0
   - 2.0.0
+  - 1.9.3
   - jruby-19mode
+before_install:
+  - sudo apt-get update && sudo apt-get install git
+  - gem install bundler --pre
 script: rspec
-matrix:
-  allowed_failures:
-    - rvm: jruby-19mode
+env:
+  - global:
+    - AWESOME_VAR=hell-yeahz
+    - WHAT_EVES=shut-up
+
