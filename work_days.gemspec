@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = WorkDays::VERSION
 
-  gem.add_dependency 'thor', '~> 0.16.0'
-  gem.add_development_dependency 'rspec', '~> 2.12.0'
-  gem.add_development_dependency 'bahia', '~> 0.7.2'
+  gem.add_dependency 'thor', '~> 0.18.0'
+  gem.add_development_dependency 'rspec', '~> 2.14.0'
 end

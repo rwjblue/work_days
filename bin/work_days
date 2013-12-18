@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'thor'
-
-class WorkDaysCLI < Thor
-end
