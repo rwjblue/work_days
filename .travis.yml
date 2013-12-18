@@ -3,5 +3,8 @@ rvm:
   - 2.0.0
 script: rspec
 notifications:
-  irc:
+irc:
+  channels:
     - "chat.freenode.net#rwjblue"
+  on_success: always
+  on_failure: always
