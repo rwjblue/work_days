@@ -9,7 +9,7 @@ before_install:
   - gem install bundler --pre
 script: rspec
 env:
-  - global:
+  global:
     - AWESOME_VAR=hell-yeahz
     - WHAT_EVES=shut-up
 
