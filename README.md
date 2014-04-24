@@ -18,13 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
-Use your own custom work schedule by creating a class implementing 
+Use your own custom work schedule by creating a class implementing
 your custom holiday methods and including the WorkDays::CalculationMethods module
-(and optionally the WorkDays::HolidayMethods module for a few of the presets). 
+(and optionally the WorkDays::HolidayMethods module for a few of the presets).
 
     class SampleSchedule
-      WorkDays::CalculationMethods
-      WorkDays::HolidayMethods
+      include WorkDays::CalculationMethods
+      include WorkDays::HolidayMethods
 
       def observed_holidays
         [:new_years_day, :christmas_day]
