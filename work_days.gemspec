@@ -2,6 +2,7 @@
 require File.expand_path('../lib/work_days/version', __FILE__)
 
 Gem::Specification.new do |gem|
+  gem.license       = 'MIT'
   gem.authors       = ["Robert Jackson"]
   gem.email         = ["robert.w.jackson@me.com"]
   gem.description   = %q{Calculate the number of work days in a given period.  Also, add convenience methods to Range, Date, DateTime, and Time.}
@@ -15,6 +16,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = WorkDays::VERSION
 
-  gem.add_dependency 'thor', '~> 0.18.0'
-  gem.add_development_dependency 'rspec', '~> 2.14.0'
+  gem.add_development_dependency 'rspec', '~> 2.14'
 end
