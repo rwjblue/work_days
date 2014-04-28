@@ -32,6 +32,16 @@ module WorkDays::CalculationMethods
     working_days
   end
 
+  def holidays_in_range(start, stop)
+    holidays = []
+
+    (start.to_date..stop.to_date).each do |date|
+      holidays << date if holiday?(date)
+    end
+
+    holidays
+  end
+
   def work_days_in_month(date)
     start_date = Date.new(date.year, date.month,  1)
     end_date   = Date.new(date.year, date.month, -1)

@@ -105,6 +105,24 @@ describe WorkDays::CalculationMethods, :type => :holiday_helpers do
     end
   end
 
+  context "#holidays_in_range" do
+    let(:start_date) {random_date}
+    let(:end_date)   {start_date + rand(45)}
+
+    it "should return an array of the observed holidays between two dates" do
+      valid_holidays = []
+
+      (start_date..end_date).each do |date|
+        holiday = random_boolean
+
+        valid_holidays << date if holiday
+        subject.should_receive(:holiday?).with(date).and_return(holiday)
+      end
+
+      subject.holidays_in_range(start_date, end_date).should eq(valid_holidays)
+    end
+  end
+
   context "#work_days_in_month" do
     let(:date)             {random_date}
     let(:range_start_date) {Date.new(date.year, date.month, 1)}

@@ -55,6 +55,8 @@ on the WorkDays module (as long as you set the WorkDays.work_schedule).
   * Returns an array of the work days for the year and month of the passed in date.
 * holiday?(date)
   * Returns true for any date that is an observed holiday.
+* holidays_in_range(start_date, end_date)
+  * Returns an array of the holidays between the start and end dates.
 
 ## Contributing
 
